@@ -25,6 +25,21 @@ What the automation engineer implemented (current state)
 - GitHub Actions workflow (.github/workflows/appium-tests.yml) that boots an emulator, builds the debug APK, installs dependencies, starts Appium and runs pytest; artifacts are uploaded from testing/appium/artifacts.
 
 Quick-start (local)
+
+VSCode users: If you see "Import \"pytest\" could not be resolved" in the editor, add workspace settings to quiet missing-import diagnostics or configure your Python interpreter/extraPaths. Example file to add to the repo:
+
+.vscode/settings.json
+```
+{
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingImports": "none"
+  },
+  "python.analysis.typeCheckingMode": "off"
+}
+```
+
+Alternatively set python.analysis.extraPaths to your virtualenv site-packages or select the project interpreter in VSCode. These changes only affect the editor diagnostics and do not change test execution.
+
 1. Prepare environment
 - Install Android SDK, Platform Tools, and required AVD images (x86_64). Ensure adb and emulator are on PATH.
 - Install JDK 11 and ensure JAVA_HOME is set.
