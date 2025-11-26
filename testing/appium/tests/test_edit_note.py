@@ -14,11 +14,11 @@ def test_edit_note_flow(driver):
     new_page.tap_save()
 
     # wait for note to appear in list
-    from selenium.webdriver.support.ui import WebDriverWait
+    from testing.appium.waits import Waits
     from appium.webdriver.common.appiumby import AppiumBy
 
-    wait = WebDriverWait(driver, 10)
-    wait.until(lambda d: any(original_title in e.text for e in d.find_elements(AppiumBy.ID, 'com.bersyte.noteapp:id/tvNoteTitle')))
+    wait = Waits(driver, 10)
+    wait.until_elements((AppiumBy.ID, 'com.bersyte.noteapp:id/tvNoteTitle'))
     assert home.has_note_with_title(original_title)
 
     # open the first note (should be the one we just created)
