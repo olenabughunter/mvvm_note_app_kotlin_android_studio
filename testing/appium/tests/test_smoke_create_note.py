@@ -13,10 +13,9 @@ def test_create_note_smoke(driver):
     new_note.enter_body('This is a test note')
     new_note.tap_save()
     # wait for note to appear in list
-    from selenium.webdriver.support.ui import WebDriverWait
-    from selenium.webdriver.support import expected_conditions as EC
+    from testing.appium.waits import Waits
     from appium.webdriver.common.appiumby import AppiumBy
 
-    wait = WebDriverWait(driver, 10)
-    wait.until(lambda d: any(title in e.text for e in d.find_elements(AppiumBy.ID, 'com.bersyte.noteapp:id/tvNoteTitle')))
+    wait = Waits(driver, 10)
+    wait.until_elements((AppiumBy.ID, 'com.bersyte.noteapp:id/tvNoteTitle'))
     assert home.has_note_with_title(title)
