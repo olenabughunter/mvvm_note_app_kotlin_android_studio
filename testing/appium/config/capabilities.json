@@ -1,0 +1,9 @@
+{
+  "platformName": "Android",
+  "platformVersion": "11",
+  "deviceName": "emulator-5554",
+  "automationName": "UiAutomator2",
+  "appPackage": "com.bersyte.noteapp",
+  "appActivity": ".MainActivity",
+  "noReset": false
+}
