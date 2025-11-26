@@ -1,3 +1,6 @@
+# NOTE: Appium's Python client implements the WebDriver protocol. We use
+# selenium.webdriver.support.ui.WebDriverWait for explicit waits because they
+# work against any WebDriver-compatible driver (including Appium's).
 from appium.webdriver.common.appiumby import AppiumBy
 
 

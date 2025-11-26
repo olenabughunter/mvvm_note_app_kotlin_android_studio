@@ -1,3 +1,7 @@
+# NOTE: Appium's Python client implements the WebDriver protocol. We use
+# selenium.webdriver.support.ui.WebDriverWait and expected_conditions for
+# explicit waits because they work against any WebDriver-compatible driver
+# (including Appium's). Locators use AppiumBy for mobile-specific strategies.
 from appium.webdriver.common.appiumby import AppiumBy
 
 
