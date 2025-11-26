@@ -13,11 +13,11 @@ def test_delete_note_flow(driver):
     new_page.enter_body('Body to delete')
     new_page.tap_save()
 
-    from selenium.webdriver.support.ui import WebDriverWait
+    from testing.appium.waits import Waits
     from appium.webdriver.common.appiumby import AppiumBy
 
-    wait = WebDriverWait(driver, 10)
-    wait.until(lambda d: any(title in e.text for e in d.find_elements(AppiumBy.ID, 'com.bersyte.noteapp:id/tvNoteTitle')))
+    wait = Waits(driver, 10)
+    wait.until_elements((AppiumBy.ID, 'com.bersyte.noteapp:id/tvNoteTitle'))
     assert home.has_note_with_title(title)
 
     # open first note and delete
