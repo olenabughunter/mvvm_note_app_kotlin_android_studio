@@ -1,13 +1,49 @@
-# mvvm_note_app_kotlin_android_studio
-This is a Simple but Complete Android Note App with clean architecture, MVVM, Room Database, Navigation Components, Safe Args, and Search View!
+mvvm_note_app_kotlin_android_studio
 
-<a href="https://www.buymeacoffee.com/bersyteinf4" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+Quick start — build, run, and push
 
-## MVVM Note App
+Prerequisites
+- Android SDK & command-line tools (adb, emulator, avdmanager)
+- Java JDK (Java 11 recommended for building this project)
+- Gradle (the project includes a wrapper: ./gradlew)
+- Git
+- (Optional) Appium server and client if you want to run UI automation
 
+Build the debug APK locally
+1. From the project root:
+   ./gradlew assembleDebug
+   - Output APK: app/build/outputs/apk/debug/app-debug.apk
+   - If you run into Kotlin/Room native errors on Apple Silicon (aarch64), use Java 11 when running Gradle:
+     export JAVA_HOME=$(/usr/libexec/java_home -v 11)
+     ./gradlew assembleDebug
+   - If annotation-processing fails due to native sqlite for aarch64, either build on an x86_64 environment or add a sqlite native/JDBC dependency as needed.
 
-<img src="https://user-images.githubusercontent.com/68303716/104845731-aab6f380-58df-11eb-8d76-f126d86aeb8a.jpg" width="267" height="580">
-<img src="https://user-images.githubusercontent.com/68303716/104845730-aab6f380-58df-11eb-8f99-5c4394540a2c.jpg" width="267" height="580">  
-<img src="https://user-images.githubusercontent.com/68303716/104845729-a985c680-58df-11eb-937e-109eb0bee809.jpg" width="267" height="580">  
-<img src="https://user-images.githubusercontent.com/68303716/104845732-ab4f8a00-58df-11eb-9fc8-875ac7a2e92b.jpg" width="267" height="580">  
-<img src="https://user-images.githubusercontent.com/68303716/104845733-ab4f8a00-58df-11eb-9afd-cd2085b9b9f0.jpg" width="267" height="580">  
+Run on an emulator or device
+1. Start an Android emulator (or connect a device):
+   - List AVDs: emulator -list-avds
+   - Start AVD: emulator -avd <AVD_NAME>
+2. Install the APK (if you built it locally):
+   adb install -r app/build/outputs/apk/debug/app-debug.apk
+3. Launch the app activity:
+   adb shell am start -n com.bersyte.noteapp/.MainActivity
+
+Appium / automation hints
+- I added Appium capability examples and notes at appium/DESIRED_CAPABILITIES.md
+- Quick run file: RUN_APP_WITH_APPIUM.md
+- Typical desired capabilities: use appPackage=com.bersyte.noteapp and appActivity=.MainActivity (or provide the built APK path to install automatically).
+
+Push changes to your GitHub
+1. Add remote (if you haven't already) and push:
+   git remote add user https://github.com/olenabughunter/mvvm_note_app_kotlin_android_studio.git
+   git push user master
+
+Notes & troubleshooting
+- If Gradle/Kotlin fails on recent JDKs due to reflective access, try adding the following to gradle.properties (already added in this repo):
+  org.gradle.jvmargs=--add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED -Xmx1536m
+  android.useAndroidX=true
+  android.enableJetifier=true
+- If Room's annotation processor throws errors about missing native sqlite on macOS aarch64, either switch to Java 11, run under x86_64 (Rosetta) or add an appropriate sqlite-jdbc native library so the processor can load the native implementation during kapt.
+
+If you'd like, I can:
+- Continue fixing the build so the APK can be produced on this machine (I can try adding a sqlite native dependency or other fixes)
+- Or, if you build the APK locally and provide the path, I will install and launch it on the emulator or run Appium tests against it.
