@@ -127,8 +127,3 @@ Contacts & ownership
 - Test Manager: overall strategy and priorities
 - Automation Engineers: test implementation and CI pipelines
 - Developers: support for unit/integration tests and test-only modules
-
-References
-- testing/TEST_AUTOMATION_PLAN.md (project-level automation strategy)
-- testing/appium/requirements.txt
-- testing/appium/conftest.py
