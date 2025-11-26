@@ -10,19 +10,29 @@ class NewNotePage:
         self.driver = driver
 
     def enter_title(self, title):
-        el = self.driver.find_element(*self.TITLE_INPUT)
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        wait = WebDriverWait(self.driver, 10)
+        el = wait.until(lambda d: d.find_element(*self.TITLE_INPUT))
         el.clear()
         el.send_keys(title)
 
     def enter_body(self, body):
-        el = self.driver.find_element(*self.BODY_INPUT)
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        wait = WebDriverWait(self.driver, 10)
+        el = wait.until(lambda d: d.find_element(*self.BODY_INPUT))
         el.clear()
         el.send_keys(body)
 
     def tap_save(self):
         # menu item uses android menu id; sometimes accessible via resource id
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        wait = WebDriverWait(self.driver, 5)
         try:
-            self.driver.find_element(*self.SAVE_MENU).click()
+            el = wait.until(lambda d: d.find_element(*self.SAVE_MENU))
+            el.click()
         except Exception:
             # fallback: press back to trigger save if app behaves that way
             self.driver.back()

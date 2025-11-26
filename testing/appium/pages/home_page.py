@@ -13,20 +13,34 @@ class HomePage:
     def tap_add(self):
         """Tap the FAB to open the New Note screen and return the NewNotePage object."""
         from testing.appium.pages.new_note_page import NewNotePage
-        self.driver.find_element(*self.ADD_BUTTON).click()
+        from selenium.webdriver.support.ui import WebDriverWait
+        from selenium.webdriver.support import expected_conditions as EC
+
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(lambda d: d.find_element(*self.ADD_BUTTON)).click()
         return NewNotePage(self.driver)
 
     def open_first_note(self):
         """Open the first note in the list and return the UpdateNotePage object."""
         from testing.appium.pages.update_note_page import UpdateNotePage
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(lambda d: len(d.find_elements(*self.NOTE_TITLE_ITEMS)) > 0)
         elems = self.driver.find_elements(*self.NOTE_TITLE_ITEMS)
-        if not elems:
-            raise Exception("No notes available to open")
         elems[0].click()
         return UpdateNotePage(self.driver)
 
     def has_note_with_title(self, title):
         # find note title elements and compare text
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        wait = WebDriverWait(self.driver, 5)
+        try:
+            wait.until(lambda d: len(d.find_elements(*self.NOTE_TITLE_ITEMS)) > 0)
+        except Exception:
+            return False
+
         elems = self.driver.find_elements(*self.NOTE_TITLE_ITEMS)
         for e in elems:
             try:

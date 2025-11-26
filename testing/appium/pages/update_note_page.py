@@ -11,28 +11,42 @@ class UpdateNotePage:
         self.driver = driver
 
     def edit_title(self, title):
-        el = self.driver.find_element(*self.TITLE_INPUT)
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        wait = WebDriverWait(self.driver, 10)
+        el = wait.until(lambda d: d.find_element(*self.TITLE_INPUT))
         el.clear()
         el.send_keys(title)
 
     def edit_body(self, body):
-        el = self.driver.find_element(*self.BODY_INPUT)
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        wait = WebDriverWait(self.driver, 10)
+        el = wait.until(lambda d: d.find_element(*self.BODY_INPUT))
         el.clear()
         el.send_keys(body)
 
     def tap_done(self):
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        wait = WebDriverWait(self.driver, 5)
         try:
-            self.driver.find_element(*self.DONE_BUTTON).click()
+            el = wait.until(lambda d: d.find_element(*self.DONE_BUTTON))
+            el.click()
         except Exception:
             # fallback to back navigation which may save
             self.driver.back()
 
     def tap_delete(self):
         """Tap the delete menu item to remove the current note."""
+        from selenium.webdriver.support.ui import WebDriverWait
+
+        wait = WebDriverWait(self.driver, 5)
         try:
-            self.driver.find_element(*self.DELETE_MENU).click()
+            el = wait.until(lambda d: d.find_element(*self.DELETE_MENU))
+            el.click()
         except Exception:
-            # If menu isn't visible, try opening options menu
+            # If menu isn't visible, try opening options menu as a last resort
             try:
                 self.driver.open_notifications()
             except Exception:
